@@ -1,0 +1,43 @@
+name: "cloud.gov deploy"
+description: "Deploy application to cloud.gov using manifest file"
+inputs:
+  cf_api:
+    description: "API endpoint for login"
+    required: false
+    default: "https://api.fr.cloud.gov"
+  cf_username:
+    description: "cloud.gov username for deploy user"
+    required: true
+  cf_password:
+    description: "cloud.gov password for deploy user"
+    required: true
+  cf_org:
+    description: "cloud.gov organization to deploy into"
+    required: true
+  cf_space:
+    description: "cloud.gov space to deploy into"
+    required: true
+  app_directory:
+    description: "directory to deploy"
+    required: false
+    default: "./"
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Install cf-cli@7"
+      shell: bash
+      run: |
+        curl -v -L -o cf-cli_amd64.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
+        sudo dpkg -i cf-cli_amd64.deb
+
+    - name: "Login to cf api"
+      shell: bash
+      run: |
+        cf login -a ${{ inputs.cf_api }} -u ${{ inputs.cf_username }} -p ${{ inputs.cf_password }} -o ${{ inputs.cf_org }} -s ${{ inputs.cf_space }}
+
+    - name: "Push application with deployment vars"
+      shell: bash
+      working-directory: ${{ inputs.app_directory }}
+      run: |
+        cf push --strategy rolling

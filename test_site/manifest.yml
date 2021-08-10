@@ -1,0 +1,5 @@
+---
+applications:
+  - name: cg-deploy-action
+    buildpacks:
+      - staticfile_buildpack
