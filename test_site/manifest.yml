@@ -1,5 +1,6 @@
 ---
 applications:
   - name: cg-deploy-action
+    memory: ((memory))
     buildpacks:
       - staticfile_buildpack

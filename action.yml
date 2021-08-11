@@ -21,6 +21,10 @@ inputs:
     description: "directory to deploy"
     required: false
     default: "./"
+  push_arguments:
+    description: "additional command line arguments to pass to cf push"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -40,4 +44,4 @@ runs:
       shell: bash
       working-directory: ${{ inputs.app_directory }}
       run: |
-        cf push --strategy rolling
+        cf push --strategy rolling ${{ inputs.push_arguments }}
