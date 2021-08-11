@@ -1,7 +1,7 @@
-name: "test"
+name: "test deploy to cloud.gov"
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:

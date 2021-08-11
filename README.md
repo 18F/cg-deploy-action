@@ -42,4 +42,7 @@ None yet
 
 [Act](https://github.com/nektos/act) can be used to run the test workflow locally.
 
-`act pull_request`
+1. `$ cp .secrets.example .secrets`
+1. Create a [space-deployer service account](https://cloud.gov/docs/services/cloud-gov-service-account/) and copy the username and password into `.secrets`
+1. Set `CF_ORG` and `CF_SPACE` to your organization and space
+1. Run act: `$ act`

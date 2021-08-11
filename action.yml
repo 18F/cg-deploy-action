@@ -40,7 +40,7 @@ runs:
       run: |
         cf login -a ${{ inputs.cf_api }} -u ${{ inputs.cf_username }} -p ${{ inputs.cf_password }} -o ${{ inputs.cf_org }} -s ${{ inputs.cf_space }}
 
-    - name: "Push application with deployment vars"
+    - name: "Push application with rolling strategy"
       shell: bash
       working-directory: ${{ inputs.app_directory }}
       run: |
