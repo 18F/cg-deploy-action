@@ -12,14 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Deploy to cloud.gov
         uses: 18f/cg-deploy-action@main
+        env:
+          OTHER_SECRET: ${{ secrets.OTHER_SECRET }}
         with:
           cf_username: ${{ secrets.CF_USERNAME }}
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: my-org-name
           cf_space: my-space-name
-          push_arguments: "--vars-file deploy_config.yml --var OTHER_SECRET=${{ secrets.OTHER_SECRET }}"
+          push_arguments: "--vars-file deploy_config.yml --var other_secret=$OTHER_SECRET"
 ```
 
 ## Inputs

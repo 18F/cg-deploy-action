@@ -37,8 +37,11 @@ runs:
 
     - name: "Login to cf api"
       shell: bash
+      env:
+        CF_USERNAME: ${{ inputs.cf_username }}
+        CF_PASSWORD: ${{ inputs.cf_password }}
       run: |
-        cf login -a ${{ inputs.cf_api }} -u ${{ inputs.cf_username }} -p ${{ inputs.cf_password }} -o ${{ inputs.cf_org }} -s ${{ inputs.cf_space }}
+        cf login -a ${{ inputs.cf_api }} -u $CF_USERNAME -p $CF_PASSWORD -o ${{ inputs.cf_org }} -s ${{ inputs.cf_space }}
 
     - name: "Push application with rolling strategy"
       shell: bash

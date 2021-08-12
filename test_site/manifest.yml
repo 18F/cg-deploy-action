@@ -4,3 +4,5 @@ applications:
     memory: ((memory))
     buildpacks:
       - staticfile_buildpack
+    env:
+      CF_SPACE: ((cf_space))
