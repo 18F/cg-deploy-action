@@ -25,6 +25,10 @@ inputs:
     description: "additional command line arguments to pass to cf push"
     required: false
     default: ""
+  full_command:
+    description: "Full command with arguments to run instead of cf push"
+    required: false
+    default: "push"
 
 runs:
   using: "composite"
@@ -43,8 +47,8 @@ runs:
       run: |
         cf login -a ${{ inputs.cf_api }} -u $CF_USERNAME -p $CF_PASSWORD -o ${{ inputs.cf_org }} -s ${{ inputs.cf_space }}
 
-    - name: "Push application with rolling strategy"
+    - name: "Run cf command"
       shell: bash
       working-directory: ${{ inputs.app_directory }}
       run: |
-        cf push --strategy rolling ${{ inputs.push_arguments }}
+        [ "${{ inputs.full_command }}" = "push" ] && cf push --strategy rolling ${{ inputs.push_arguments }} || ${{ inputs.full_command }}

@@ -23,6 +23,15 @@ jobs:
           cf_org: my-org-name
           cf_space: my-space-name
           push_arguments: "--vars-file deploy_config.yml --var other_secret=$OTHER_SECRET"
+
+      - name: Set environment variable
+        uses: 18f/cg-deploy-action@main
+        with:
+          cf_username: ${{ secrets.CF_USERNAME }}
+          cf_password: ${{ secrets.CF_PASSWORD }}
+          cf_org: my-org-name
+          cf_space: my-space-name
+          full_command: "cf set-env APP_NAME DEPLOYED_SHA $GITHUB_SHA"
 ```
 
 ## Inputs
@@ -36,6 +45,7 @@ jobs:
 | `push_arguments` | Additional arguments to pass to cf push | No | |
 | `cf_api` | API endpoint for cloudfoundry server | No | `https://api.fr.cloud.gov` |
 | `app_directory` | Directory to push to cloud.gov | No | `./` |
+| `full_command` | Full command to run instead of `cf push` | No | |
 
 ## Outputs
 
