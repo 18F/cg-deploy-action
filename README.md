@@ -22,7 +22,9 @@ jobs:
           cf_password: ${{ secrets.CF_PASSWORD }}
           cf_org: my-org-name
           cf_space: my-space-name
-          push_arguments: "--vars-file deploy_config.yml --var other_secret=$OTHER_SECRET"
+          push_arguments: >-
+            --vars-file deploy_config.yml
+            --var other_secret="$OTHER_SECRET"
 
       - name: Set environment variable
         uses: 18f/cg-deploy-action@main
@@ -33,6 +35,10 @@ jobs:
           cf_space: my-space-name
           full_command: "cf set-env APP_NAME DEPLOYED_SHA $GITHUB_SHA"
 ```
+
+### Important Gotcha
+
+To use multiline strings for `push_arguments` or `full_command` use the `>-` form that tells yaml to strip out newlines
 
 ## Inputs
 

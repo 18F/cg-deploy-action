@@ -3,6 +3,8 @@ name: "test deploy to cloud.gov"
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -21,7 +23,9 @@ jobs:
           cf_org: ${{ secrets.CF_ORG }}
           cf_space: ${{ secrets.CF_SPACE }}
           app_directory: ./test_site
-          push_arguments: "--vars-file deployment_config.yml --var cf_space=$CFSPACE"
+          push_arguments: >-
+            --vars-file deployment_config.yml
+            --var cf_space="$CFSPACE"
 
       - name: "Run set-env command"
         uses: ./
