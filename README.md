@@ -2,6 +2,8 @@
 
 Github Action for deploying a cloud.gov application
 
+DEPRECATED: This action has been deprecated in favor of [an alternative GitHub Action supported by the cloud.gov team](https://github.com/cloud-gov/cg-cli-tools).
+
 ## Example use
 
 ```
